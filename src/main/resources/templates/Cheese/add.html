@@ -8,12 +8,10 @@
 
     <h1 th:text="${title}"> Default title</h1>
 
-    <p th:unless="${name} and ${name.size()}">No values :(</p>
-    <a href="/names/add">Add Cheeses</a>
-
-    <ul>
-        <li th:each="name : ${name}" th:text="${name}"></li>
-    </ul>
+    <form method="post">
+        <input type="text" name="names"/>
+        <input type="submit" name="add" />
+    </form>
 
 </body>
 </html>
