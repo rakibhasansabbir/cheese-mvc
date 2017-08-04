@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8" />
-    <title th:text="${title}">Title</title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
 
     <h1 th:text="${title}"> Default title</h1>
-
+<nav th:replace="fragments :: navigation"></nav>
     <p th:unless="${name} and ${name.size()}">No values :(</p>
-    <a href="/names/add">Add Cheeses</a>
 
     <ul>
         <li th:each="name : ${name}" th:text="${name}"></li>
