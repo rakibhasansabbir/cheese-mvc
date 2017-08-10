@@ -1,47 +1,61 @@
 package bd.ac.seu.cheesemvc.controller;
 
-import org.omg.CORBA.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by R@kib Hasan Sabbir
  */
 
 @Controller
-@RequestMapping("names")
+@RequestMapping("cheese")
 public class CheeseController {
-    static ArrayList<String> list1 = new ArrayList<>();
 
+    static HashMap<String, String> AList1 = new HashMap<>();
 
+    // Request path: /cheese
     @RequestMapping(value = "")
-    public String index(Model model){
+    public String index(Model model) {
 
+        model.addAttribute("List1", AList1);
+        model.addAttribute("title", "My List");
 
-        model.addAttribute("name",list1);
-        model.addAttribute("title","Welcome Rakib Hasan");
         return "Cheese/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddNamesFrom(Model model){
-        model.addAttribute("title","Add Names");
+    public String displayAddCheeseForm(Model model) {
+        model.addAttribute("title", "Add To List");
         return "Cheese/add";
-
     }
-    @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddNamesFrom(@RequestParam String names){
 
-        list1.add(names);
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String processAddCheeseForm(@RequestParam String cheeseName,
+                                       @RequestParam String cheeseDescription) {
+        AList1.put(cheeseName, cheeseDescription);
         return "redirect:";
     }
 
+    @RequestMapping(value = "remove", method = RequestMethod.GET)
+    public String displayRemoveCheeseForm(Model model) {
+        model.addAttribute("List1", AList1.keySet());
+        model.addAttribute("title", "Remove List");
+        return "Cheese/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveCheeseForm(@RequestParam ArrayList<String> cheese) {
+
+        for (String aCheese : cheese) {
+            AList1.remove(aCheese);
+        }
+
+        return "redirect:";
+    }
 
 }
