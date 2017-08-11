@@ -1,5 +1,6 @@
 package bd.ac.seu.cheesemvc.controller;
 
+import bd.ac.seu.cheesemvc.models.Cheese;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +12,13 @@ import java.util.HashMap;
 /**
  * Created by R@kib Hasan Sabbir
  */
-// just for check
+
 
 @Controller
 @RequestMapping("cheese")
 public class CheeseController {
 
-    static HashMap<String, String> AList1 = new HashMap<>();
+    static ArrayList<Cheese> AList1 = new ArrayList<>();
 
     // Request path: /cheese
     @RequestMapping(value = "")
@@ -37,14 +38,16 @@ public class CheeseController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(@RequestParam String cheeseName,
-                                       @RequestParam String cheeseDescription) {
-        AList1.put(cheeseName, cheeseDescription);
+                                       @RequestParam String cheeseID,
+                                       @RequestParam String cheeseEmail) {
+        Cheese newCheese = new Cheese(cheeseName,cheeseID,cheeseEmail);
+        AList1.add(newCheese);
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("List1", AList1.keySet());
+        model.addAttribute("List1", AList1);
         model.addAttribute("title", "Remove List");
         return "Cheese/remove";
     }
