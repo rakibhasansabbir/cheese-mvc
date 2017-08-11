@@ -7,11 +7,27 @@ public class Cheese {
     public String name;
     public String ID;
     public String Email;
+    public int cheeseID;
+    public static int nextID = 1;
 
     public Cheese(String name, String ID, String email) {
+        this();
         this.name = name;
         this.ID = ID;
         Email = email;
+    }
+
+    public Cheese() {
+        cheeseID = nextID;
+        nextID++;
+    }
+
+    public int getCheeseID() {
+        return cheeseID;
+    }
+
+    public void setCheeseID(int cheeseID) {
+        this.cheeseID = cheeseID;
     }
 
     public String getName() {
