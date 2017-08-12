@@ -1,14 +1,30 @@
 package bd.ac.seu.cheesemvc.models;
 
+import javax.validation.constraints.NotNull;
+
+import javax.validation.constraints.Size;
+
 /**
  * Created by R@kib Hasan Sabbir
  */
 public class Cheese {
-    public String name;
-    public String ID;
-    public String Email;
-    public int cheeseID;
-    public static int nextID = 1;
+
+    @NotNull
+    @Size(min = 3,max = 25)
+    private String name;
+
+
+    @NotNull
+    @Size(min = 1,message = "ID must not be empty")
+    private String ID;
+
+
+    @NotNull
+    @Size(min = 1,message = "Email must not be empty")
+    private String Email;
+
+    private int cheeseID;
+    private static int nextID = 1;
 
     public Cheese(String name, String ID, String email) {
         this();

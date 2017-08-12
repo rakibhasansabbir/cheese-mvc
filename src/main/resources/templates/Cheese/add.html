@@ -6,18 +6,21 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" style="max-width:600px;">
+<form method="post" style="max-width:600px;" th:object="${cheese}">
     <div class="form-group">
-        <label for="name-field">Name</label>
-        <input class="form-control" id="name-field" type="text" name="name" />
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="desc-field">ID</label>
-        <input class="form-control" id="desc-field" type="text" name="ID" />
+        <label th:for="ID">ID</label>
+        <input class="form-control" th:field="*{ID}" />
+        <span th:errors="*{ID}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="desc-field">Email</label>
-        <input class="form-control" id="email-field" type="text" name="Email" />
+        <label th:for="Email">Email</label>
+        <input class="form-control" th:field="*{Email}" />
+        <span th:errors="*{Email}" class="error"></span>
     </div>
     <input type="submit" value="Add Cheese" />
 </form>
