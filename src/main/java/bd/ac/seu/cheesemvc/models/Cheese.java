@@ -1,7 +1,7 @@
 package bd.ac.seu.cheesemvc.models;
 
-import javax.validation.constraints.NotNull;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -22,6 +22,8 @@ public class Cheese {
     @NotNull
     @Size(min = 1,message = "Email must not be empty")
     private String Email;
+
+    private CheeseType type;
 
     private int cheeseID;
     private static int nextID = 1;
@@ -68,6 +70,14 @@ public class Cheese {
 
     public void setEmail(String email) {
         Email = email;
+    }
+
+    public CheeseType getType() {
+        return type;
+    }
+
+    public void setType(CheeseType type) {
+        this.type = type;
     }
 }
 

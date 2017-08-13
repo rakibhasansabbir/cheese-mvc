@@ -2,6 +2,7 @@ package bd.ac.seu.cheesemvc.controller;
 
 import bd.ac.seu.cheesemvc.models.Cheese;
 import bd.ac.seu.cheesemvc.models.CheeseData;
+import bd.ac.seu.cheesemvc.models.CheeseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 /**
  * Created by R@kib Hasan Sabbir
@@ -37,6 +37,7 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add To List");
         model.addAttribute(new Cheese());
+        model.addAttribute("cheeseTypes", CheeseType.values());
         return "Cheese/add";
     }
 
