@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+
+<body class="container body-content">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${List1} and ${List1.size()}">List Empty :(</p>
+
+
+<table class="table">
+
+    <tr>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Type</th>
+    </tr>
+
+    <tr th:each="cheese : ${List1}">
+        <td th:text="${cheese.name}"></td>
+        <td th:text="${cheese.ID}"></td>
+        <td th:text="${cheese.Email}"></td>
+        <td th:text="${cheese.type.name}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

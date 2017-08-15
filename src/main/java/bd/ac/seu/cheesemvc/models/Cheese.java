@@ -1,13 +1,21 @@
 package bd.ac.seu.cheesemvc.models;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * Created by R@kib Hasan Sabbir
  */
+@Entity
 public class Cheese {
+
+    @Id
+    @GeneratedValue
+    private int ids;
 
     @NotNull
     @Size(min = 3,max = 25)
@@ -25,27 +33,16 @@ public class Cheese {
 
     private CheeseType type;
 
-    private int cheeseID;
-    private static int nextID = 1;
-
     public Cheese(String name, String ID, String email) {
-        this();
         this.name = name;
         this.ID = ID;
         Email = email;
     }
 
-    public Cheese() {
-        cheeseID = nextID;
-        nextID++;
-    }
+    public Cheese() { }
 
-    public int getCheeseID() {
-        return cheeseID;
-    }
-
-    public void setCheeseID(int cheeseID) {
-        this.cheeseID = cheeseID;
+    public int getIds() {
+        return ids;
     }
 
     public String getName() {

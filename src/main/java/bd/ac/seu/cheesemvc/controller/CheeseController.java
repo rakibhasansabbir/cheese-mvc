@@ -1,8 +1,9 @@
 package bd.ac.seu.cheesemvc.controller;
 
 import bd.ac.seu.cheesemvc.models.Cheese;
-import bd.ac.seu.cheesemvc.models.CheeseData;
 import bd.ac.seu.cheesemvc.models.CheeseType;
+import bd.ac.seu.cheesemvc.models.data.CheeseDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,15 +20,17 @@ import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("cheese")
+@RequestMapping("")
 public class CheeseController {
 
+    @Autowired
+    private CheeseDao cheeseDao;
 
     // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("List1", CheeseData.getAll());
+        model.addAttribute("List1", cheeseDao.findAll());
         model.addAttribute("title", "My List");
 
         return "Cheese/index";
@@ -42,7 +45,8 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute @Valid  Cheese newCheese,Errors errors,Model model) {
+    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
+                                       Errors errors, Model model) {
 
 
         if(errors.hasErrors()){
@@ -50,13 +54,13 @@ public class CheeseController {
             return "Cheese/add";
         }else
 
-        CheeseData.add(newCheese);
+        cheeseDao.save(newCheese);
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("List1", CheeseData.getAll());
+        model.addAttribute("List1", cheeseDao.findAll());
         model.addAttribute("title", "Remove List");
         return "Cheese/remove";
     }
@@ -65,7 +69,7 @@ public class CheeseController {
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
         for (int cheeseID : cheeseIds) {
-            CheeseData.remove(cheeseID);
+            cheeseDao.delete(cheeseID);
         }
 
         return "redirect:";
