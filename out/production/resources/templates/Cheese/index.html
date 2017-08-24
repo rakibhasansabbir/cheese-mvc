@@ -17,14 +17,14 @@
         <th>Name</th>
         <th>ID</th>
         <th>Email</th>
-        <th>Type</th>
+        <th>Sex</th>
     </tr>
 
     <tr th:each="cheese : ${List1}">
         <td th:text="${cheese.name}"></td>
         <td th:text="${cheese.ID}"></td>
         <td th:text="${cheese.Email}"></td>
-        <td th:text="${cheese.type.name}"></td>
+        <td th:text="${cheese.category.name}"></td>
     </tr>
 
 </table>
