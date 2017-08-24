@@ -72,9 +72,9 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam int[] ids) {
+    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 
-        for (int id : ids) {
+        for (int id : cheeseIds) {
             cheeseDao.delete(id);
         }
 
@@ -82,8 +82,8 @@ public class CheeseController {
     }
 
     @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String category(Model model,   @RequestParam int ids) {
-        Category cat = category_dao.findOne(ids);
+    public String category(Model model,   @RequestParam int cheeseIds) {
+        Category cat = category_dao.findOne(cheeseIds);
         List<Cheese> cheeses = cat.getCheeses();
         model.addAttribute("List1", cheeses);
         model.addAttribute("title", "Cheeses in Category: "+cat.getName());
