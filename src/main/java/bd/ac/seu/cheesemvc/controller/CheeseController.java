@@ -2,7 +2,7 @@ package bd.ac.seu.cheesemvc.controller;
 
 import bd.ac.seu.cheesemvc.models.Category;
 import bd.ac.seu.cheesemvc.models.Cheese;
-import bd.ac.seu.cheesemvc.models.data.Category_Dao;
+import bd.ac.seu.cheesemvc.models.data.CategoryDao;
 import bd.ac.seu.cheesemvc.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class CheeseController {
     private CheeseDao cheeseDao;
 
     @Autowired
-    private Category_Dao category_dao;
+    private CategoryDao categoryDao;
 
     // Request path: /cheese
     @RequestMapping(value = "")
@@ -43,7 +42,7 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add To List");
         model.addAttribute(new Cheese());
-       model.addAttribute("categories", category_dao.findAll());
+       model.addAttribute("categories", categoryDao.findAll());
         return "Cheese/add";
     }
 
@@ -54,11 +53,11 @@ public class CheeseController {
 
         if(errors.hasErrors()){
             model.addAttribute("title", "Add To List");
-            model.addAttribute("categories", category_dao.findAll());
+            model.addAttribute("categories", categoryDao.findAll());
             return "Cheese/add";
         }
 
-            Category cat = category_dao.findOne(categoryId);
+            Category cat =categoryDao.findOne(categoryId);
                 newCheese.setCategory(cat);
                 cheeseDao.save(newCheese);
                 return "redirect:";
@@ -80,23 +79,4 @@ public class CheeseController {
 
         return "redirect:";
     }
-
-    @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String categoryDisplay(Model model) {
-        model.addAttribute("List1", category_dao.findAll());
-        model.addAttribute("title", "Category");
-        return "Category/index";
-    }
-    @RequestMapping(value = "category", method = RequestMethod.POST)
-    public String category(Model model,@RequestParam int Ids) {
-
-        Category cat = category_dao.findOne(Ids);
-        List<Cheese> cheeses = cat.getCheeses();
-        model.addAttribute("List1", cheeses);
-        model.addAttribute("title", "Cheeses in Category: "+ cat.getName());
-        return "Cheese/index";
-    }
-
-
-
 }

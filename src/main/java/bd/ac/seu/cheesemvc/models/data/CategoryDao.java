@@ -8,5 +8,5 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface Category_Dao extends CrudRepository<Category,Integer> {
+public interface CategoryDao extends CrudRepository<Category,Integer> {
 }

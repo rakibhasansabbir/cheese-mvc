@@ -9,16 +9,12 @@
 <p th:unless="${List1} and ${List1.size()}">List Empty :(</p>
 
 
-<form method="post">
 
-    <div th:each="cheese : ${List1}" class="checkbox">
-        <input type="checkbox" name="Ids" th:value="${cheese.ids}" th:id="${cheese.ids}"/>
-        <label th:for="${cheese.ids}" th:text="${cheese.name}"></label>
-        <br />
-    </div>
-
-    <input type="submit" value="Show" />
-</form>
+<ul>
+    <li th:each="cheese : ${List1}">
+        <a th:href="'category/category?Ids=' + ${cheese.ids}" th:text="${cheese.name}"></a>
+    </li>
+</ul>
 
 </body>
 </html>
